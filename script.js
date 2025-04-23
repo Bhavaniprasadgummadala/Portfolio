@@ -104,132 +104,114 @@ document.addEventListener('DOMContentLoaded', function() {
     animateOnScroll();
 });
 
-* Chatbot Styles */
-.chatbot-btn {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    width: 60px;
-    height: 60px;
-    background: var(--primary-color);
-    color: white;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-    z-index: 1000;
-    transition: all 0.3s ease;
+// Chatbot Data - Customize with your information
+const chatbotData = {
+    skills: [
+      "Machine Learning: Python, TensorFlow, PyTorch, OpenCV",
+      "Programming: Java, C++, JavaScript, Node.js",
+      "UI/UX: Figma, Adobe XD, Prototyping",
+      "DevOps: Docker, Kubernetes"
+    ],
+    education: [
+      "B.Tech (CSE) - Lovely Professional University (Expected 2026)",
+      "12th Grade - Resonance (2022)",
+      "10th Grade - S.S Model High School"
+    ],
+    projects: [
+      "Whiteboard Content Digitization System (Computer Vision)",
+      "Conversational Chatbot using NLP",
+      "AharaSetu (Food Redistribution Platform)",
+      "Explore Ease (Travel App Design)"
+    ],
+    contact: [
+      "Email: gummadala.bhavani@example.com",
+      "Location: Hyderabad, Telangana, India",
+      "LinkedIn: linkedin.com/in/bhavaniprasadgummadala",
+      "GitHub: github.com/Bhavaniprasadgummadala"
+    ],
+    certifications: [
+      "Digital Skills: UI/UX - Accenture (2025)",
+      "Cloud Computing - NPTEL (2024)",
+      "Gen AI with LLM (2024)",
+      "Frontend Web Development Bootcamp - Infosys Springboard (2023)"
+    ],
+    internship: "AI/ML Intern at AICTE partnership with Techsaksham & Microsoft (Dec 2024 - Feb 2025): Worked on Stable Diffusion for image generation."
+  };
+  
+  // Chatbot UI Elements
+  const chatbotToggle = document.getElementById('chatbotToggle');
+  const chatbotContainer = document.getElementById('chatbotContainer');
+  const closeChatbot = document.getElementById('closeChatbot');
+  const chatbotMessages = document.getElementById('chatbotMessages');
+  const userInput = document.getElementById('userInput');
+  const sendMessage = document.getElementById('sendMessage');
+  
+  // Toggle chatbot visibility
+  chatbotToggle.addEventListener('click', () => {
+    chatbotContainer.style.display = 'flex';
+    addBotMessage("Hi! I'm Bhavani's assistant. Ask me about his skills, education, projects, contact info, certifications, or internship.");
+  });
+  
+  closeChatbot.addEventListener('click', () => {
+    chatbotContainer.style.display = 'none';
+  });
+  
+  // Send message on button click or Enter key
+  sendMessage.addEventListener('click', processMessage);
+  userInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') processMessage();
+  });
+  
+  function processMessage() {
+    const message = userInput.value.trim();
+    if (message) {
+      addUserMessage(message);
+      userInput.value = '';
+      setTimeout(() => generateBotResponse(message), 500);
+    }
   }
   
-  .chatbot-btn:hover {
-    transform: scale(1.1);
+  function addUserMessage(message) {
+    const messageElement = document.createElement('div');
+    messageElement.classList.add('message', 'user-message');
+    messageElement.textContent = message;
+    chatbotMessages.appendChild(messageElement);
+    chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
   }
   
-  .chatbot-container {
-    position: fixed;
-    bottom: 100px;
-    right: 30px;
-    width: 350px;
-    height: 500px;
-    background: white;
-    border-radius: 15px;
-    box-shadow: 0 5px 30px rgba(0,0,0,0.2);
-    display: none;
-    flex-direction: column;
-    z-index: 1000;
-    overflow: hidden;
-    border: 1px solid #eee;
+  function addBotMessage(message) {
+    const messageElement = document.createElement('div');
+    messageElement.classList.add('message', 'bot-message');
+    messageElement.textContent = message;
+    chatbotMessages.appendChild(messageElement);
+    chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
   }
   
-  [data-theme="dark"] .chatbot-container {
-    background: var(--dark-color);
-    border-color: #444;
-  }
+  function generateBotResponse(userMessage) {
+    const lowerMessage = userMessage.toLowerCase();
+    let response = "I can tell you about Bhavani's skills, education, projects, contact info, certifications, or internship. What would you like to know?";
   
-  .chatbot-header {
-    padding: 15px;
-    background: var(--primary-color);
-    color: white;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
+    if (lowerMessage.includes('skill') || lowerMessage.includes('what can you do') || lowerMessage.includes('expertise')) {
+      response = "Bhavani's skills include:\n" + chatbotData.skills.join("\n• ");
+    } 
+    else if (lowerMessage.includes('educat') || lowerMessage.includes('school') || lowerMessage.includes('college') || lowerMessage.includes('degree')) {
+      response = "Bhavani's education:\n" + chatbotData.education.join("\n• ");
+    }
+    else if (lowerMessage.includes('project') || lowerMessage.includes('work') || lowerMessage.includes('portfolio')) {
+      response = "Bhavani's projects:\n" + chatbotData.projects.join("\n• ");
+    }
+    else if (lowerMessage.includes('contact') || lowerMessage.includes('email') || lowerMessage.includes('reach') || lowerMessage.includes('connect')) {
+      response = "You can contact Bhavani at:\n" + chatbotData.contact.join("\n• ");
+    }
+    else if (lowerMessage.includes('certif') || lowerMessage.includes('course') || lowerMessage.includes('train')) {
+      response = "Bhavani's certifications:\n" + chatbotData.certifications.join("\n• ");
+    }
+    else if (lowerMessage.includes('intern') || lowerMessage.includes('experience') || lowerMessage.includes('work experience')) {
+      response = "Internship experience:\n" + chatbotData.internship;
+    }
+    else if (lowerMessage.includes('hello') || lowerMessage.includes('hi') || lowerMessage.includes('hey')) {
+      response = "Hello! I can tell you about Bhavani's professional background. What would you like to know?";
+    }
   
-  .close-btn {
-    background: none;
-    border: none;
-    color: white;
-    font-size: 1.5rem;
-    cursor: pointer;
-  }
-  
-  .chatbot-messages {
-    flex: 1;
-    padding: 15px;
-    overflow-y: auto;
-  }
-  
-  .message {
-    margin-bottom: 15px;
-    max-width: 80%;
-    padding: 10px 15px;
-    border-radius: 18px;
-    line-height: 1.4;
-  }
-  
-  .user-message {
-    background: #e3f2fd;
-    margin-left: auto;
-    border-bottom-right-radius: 5px;
-  }
-  
-  [data-theme="dark"] .user-message {
-    background: #1a3a5c;
-  }
-  
-  .bot-message {
-    background: #f1f1f1;
-    margin-right: auto;
-    border-bottom-left-radius: 5px;
-  }
-  
-  [data-theme="dark"] .bot-message {
-    background: #2d2d2d;
-  }
-  
-  .chatbot-input {
-    display: flex;
-    padding: 15px;
-    border-top: 1px solid #eee;
-  }
-  
-  [data-theme="dark"] .chatbot-input {
-    border-top-color: #444;
-  }
-  
-  .chatbot-input input {
-    flex: 1;
-    padding: 10px 15px;
-    border: 1px solid #ddd;
-    border-radius: 30px;
-    outline: none;
-  }
-  
-  [data-theme="dark"] .chatbot-input input {
-    background: #333;
-    border-color: #555;
-    color: white;
-  }
-  
-  .chatbot-input button {
-    background: var(--primary-color);
-    color: white;
-    border: none;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    margin-left: 10px;
-    cursor: pointer;
+    addBotMessage(response);
   }
