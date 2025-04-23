@@ -8,6 +8,23 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
+    <!-- Chatbot Button -->
+<div class="chatbot-btn" id="chatbotToggle">
+    <i class="fas fa-robot"></i>
+  </div>
+  
+  <!-- Chatbot Container -->
+  <div class="chatbot-container" id="chatbotContainer">
+    <div class="chatbot-header">
+      <h3>Bhavani Prasad's Assistant</h3>
+      <button class="close-btn" id="closeChatbot">&times;</button>
+    </div>
+    <div class="chatbot-messages" id="chatbotMessages"></div>
+    <div class="chatbot-input">
+      <input type="text" id="userInput" placeholder="Ask about my skills, projects...">
+      <button id="sendMessage"><i class="fas fa-paper-plane"></i></button>
+    </div>
+  </div>
 <body>
     <header>
         <nav>
