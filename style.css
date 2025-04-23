@@ -957,8 +957,7 @@ footer {
         opacity: 1;
     }
 }
-
-* Chatbot Styles */
+/* Chatbot Styles */
 .chatbot-btn {
     position: fixed;
     bottom: 30px;
